@@ -1,12 +1,7 @@
 package com.proj.user;
 
 public class User {
-<<<<<<< HEAD
-	/*Test*/
-
-	//fdgdfgdfvcvxfffhhhfgg
-=======
-	
+	/* testddf */
 	/* Primary key represent the user */
 	private int id;
 	
@@ -63,6 +58,4 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
->>>>>>> refs/remotes/origin/main
 }
