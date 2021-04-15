@@ -1,7 +1,7 @@
 package com.proj.user;
 
 public class User {
-	
+	/* test */
 	/* Primary key represent the user */
 	private int id;
 	
@@ -58,5 +58,4 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 }
