@@ -8,9 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.manager.util.SessionUtils;
-
 import com.proj.dao.LoginDAO;
+import com.proj.util.SessionUtils;
 
 @Named
 @SessionScoped
