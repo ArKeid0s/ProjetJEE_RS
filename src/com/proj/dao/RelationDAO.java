@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.proj.util.DbConnection;
+
 public class RelationDAO {
 
 	

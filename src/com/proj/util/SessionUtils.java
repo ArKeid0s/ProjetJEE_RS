@@ -4,6 +4,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.proj.user.User;
+
 public class SessionUtils
 {
 
@@ -29,6 +31,13 @@ public class SessionUtils
 		HttpSession session = getSession();
 		if (session != null) return (String) session.getAttribute("userid");
 		else return null;
+	}
+	
+	/* Parameters attributes getters */
+	public static User getUser()
+	{
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		return (User) session.getAttribute("user");
 	}
 
 }

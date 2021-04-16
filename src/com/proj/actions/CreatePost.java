@@ -24,7 +24,7 @@ public class CreatePost implements Serializable
 	private String title;
 	private String content;
 	private long time;
-	
+
 	private String error="";
 
 
@@ -79,18 +79,18 @@ public class CreatePost implements Serializable
 		{
 			HttpSession session = SessionUtils.getSession();
 			User user;
-			//if((user = SessionUtils.getUser())!=null) {
-			//int author = user.getId();
-			int author = 0;
+			if((user = SessionUtils.getUser())!=null) {
+				int author = user.getId();
+				//int author = 0;
 
-			Post post = new Post(author, title, content, System.currentTimeMillis());
+				Post post = new Post(author, title, content, System.currentTimeMillis());
 
-			PostDAO.insert(post);
-			return "createPost";
-			//			}			
-			//			else {
-			//				return "login";
-			//			}
+				PostDAO.insert(post);
+				return "createPost";
+			}			
+			else {
+				return "login";
+			}
 		}
 	}
 

@@ -37,17 +37,22 @@ public class DbConnection {
 	 */
 	public static Connection getInstance()
 	{
-		if (null == connection) {
-			try {
-				Class.forName(JDBC_DRIVER);
-				connection = DriverManager.getConnection(DB_URL,USER,PASS);
-			} catch (ClassNotFoundException e) {
-				//Class.forName failed
-				e.printStackTrace();
-			} catch (SQLException e) {
-				//DriverManager.getConnection failed
-				e.printStackTrace();
+		try {
+			if (null == connection || connection.isClosed()) {
+				try {
+					Class.forName(JDBC_DRIVER);
+					connection = DriverManager.getConnection(DB_URL,USER,PASS);
+				} catch (ClassNotFoundException e) {
+					//Class.forName failed
+					e.printStackTrace();
+				} catch (SQLException e) {
+					//DriverManager.getConnection failed
+					e.printStackTrace();
+				}
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return connection;
 	}

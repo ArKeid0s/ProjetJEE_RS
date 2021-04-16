@@ -1,6 +1,7 @@
 package com.proj.actions;
 
 import java.io.Serializable;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import com.proj.dao.DatabaseUserDao;
 import com.proj.dao.UserDao;
 import com.proj.user.User;
-import com.proj.util.DbConnection;
 import com.proj.util.SessionUtils;
 
 @Named
