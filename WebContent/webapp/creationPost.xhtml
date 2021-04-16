@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Creation post</title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form id="myform">
 		<fieldset>
 			<legend>Creation of a post</legend>
 
@@ -16,17 +16,19 @@
 			<h:outputLabel for="title"> Title of the post:<span
 					class="requis"></span>
 			</h:outputLabel>
-			<h:inputText id="title" value="#{createPost.title}" required="true"
+			<h:inputText id="title" value="#{createPost.title}" 
 				size="20" maxlength="60" />
 			<br />
 
 			<h:outputLabel for="content"> Content:</h:outputLabel>
 			<h:inputText id="content" value="#{createPost.content}"
-				required="true" size="20" maxlength="600" />
+				size="20" maxlength="600" />
 			<br />
 
-			<h:commandButton value="Create"
+			<h:commandButton id="mybutton" value="Create"
 				action="#{createPost.validateCreationRequest}" />
+			<br />
+			<p>#{createPost.error}</p>
 
 		</fieldset>
 

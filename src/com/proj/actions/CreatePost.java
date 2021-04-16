@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -26,18 +27,10 @@ public class CreatePost implements Serializable
 	private String title;
 	private String content;
 	private long time;
+	
+	private String error="";
 
-	private String msg;
 
-	public String getMsg()
-	{
-		return msg;
-	}
-
-	public void setMsg(String msg)
-	{
-		this.msg = msg;
-	}
 
 	public int getAuthor() {
 		return author;
@@ -74,15 +67,16 @@ public class CreatePost implements Serializable
 	// Validate login
 	public String validateCreationRequest()
 	{
+		System.out.println("passseee1");
 		if(this.title.isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Incorrect Username and Password", "Please enter a correct Username and Password"));
-			return "createPost";
+			//FacesContext.getCurrentInstance().addMessage("myForm:newPassword1", new FacesMessage("Error empty title"));
+			error="Error empty title";
+			return null;
 		}
 		else if(this.content.isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Incorrect Username and Password", "Please enter a correct Username and Password"));
-			return "createPost";
+			//FacesContext.getCurrentInstance().addMessage("myForm:newPassword1", new FacesMessage("Error empty content"));
+			error="Error empty content";
+			return null;
 		}
 		else
 		{
@@ -103,4 +97,11 @@ public class CreatePost implements Serializable
 		}
 	}
 
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
 }
