@@ -1,14 +1,16 @@
 package com.proj.actions;
 
 import java.io.Serializable;
-
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import com.proj.dao.LoginDAO;
+import com.proj.dao.DatabaseUserDao;
+import com.proj.dao.UserDao;
+import com.proj.user.User;
+import com.proj.util.DbConnection;
 import com.proj.util.SessionUtils;
 
 @Named
@@ -18,25 +20,13 @@ public class Login implements Serializable
 
 	private static final long serialVersionUID = 782115604435416963L;
 
-	/* TODO: Replace string with user object */
-
 	private String username;
 	private String pwd;
-	private String firstname;
-	private String lastname;
-	private String email;
+
+	private UserDao userDao;
+	private User userConnected = null;
 
 	private String msg;
-
-	public String getMsg()
-	{
-		return msg;
-	}
-
-	public void setMsg(String msg)
-	{
-		this.msg = msg;
-	}
 
 	public String getUsername()
 	{
@@ -58,44 +48,27 @@ public class Login implements Serializable
 		this.pwd = pwd;
 	}
 
-	public String getFirstname()
+	public String getMsg()
 	{
-		return firstname;
+		return msg;
 	}
 
-	public void setFirstname(String firstname)
+	public void setMsg(String msg)
 	{
-		this.firstname = firstname;
+		this.msg = msg;
 	}
 
-	public String getLastname()
-	{
-		return lastname;
-	}
-
-	public void setLastname(String lastname)
-	{
-		this.lastname = lastname;
-	}
-
-	public String getEmail()
-	{
-		return email;
-	}
-
-	public void setEmail(String email)
-	{
-		this.email = email;
-	}
-
+	
 	// Validate login
 	public String validateLoginRequest()
 	{
-		boolean valid = LoginDAO.validate(username, pwd);
-		if (valid)
+		userDao = new DatabaseUserDao();
+		userConnected = userDao.findByUsernamePwd(username, pwd);
+		if (userConnected != null)
 		{
 			HttpSession session = SessionUtils.getSession();
-			session.setAttribute("username", username);
+			
+			session.setAttribute("user", userConnected);
 			return "success";
 		}
 		else

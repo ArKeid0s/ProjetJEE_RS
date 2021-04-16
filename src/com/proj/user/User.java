@@ -11,6 +11,10 @@ public class User {
 	private String lastname;
 	private String email;
 	
+	public User() {
+		
+	}
+	
 	/* ID Getter Setter */
 	public int getId() {
 		return id;
