@@ -1,11 +1,7 @@
 package com.proj.user;
 
 public class User {
-<<<<<<< HEAD
-	/* testddf */
-=======
-	/* test */
->>>>>>> refs/remotes/origin/main
+
 	/* Primary key represent the user */
 	private int id;
 	
