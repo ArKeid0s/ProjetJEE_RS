@@ -23,7 +23,7 @@ public class PostDAO {
 		{
 			conn = DbConnection.getInstance();
 			ps = conn.prepareStatement(sql); 
-			ps.setInt(1, post.getAuthor());
+			ps.setInt(1, post.getAuthorID());
 			ps.setString(2, post.getTitle());
 			ps.setString(3, post.getContent());
 			ps.setLong(4, post.getTime());
@@ -53,7 +53,7 @@ public class PostDAO {
 		try
 		{
 			conn = DbConnection.getInstance();
-			ps = conn.prepareStatement("SELECT * FROM relations INNER JOIN posts ON target_user_id=author WHERE main_user_id=?)");
+			ps = conn.prepareStatement("SELECT * FROM relations INNER JOIN posts ON target_user_id=author WHERE main_user_id=?");
 			ps.setInt(1, user.getId());
 
 			ResultSet rs = ps.executeQuery();
@@ -73,6 +73,51 @@ public class PostDAO {
 		catch (SQLException ex)
 		{
 			System.out.println("[getRelationsPostsOf] " + ex.getMessage());
+			return posts;
+		}
+		finally
+		{
+			DbConnection.close();
+		}
+		return posts;
+	}
+	
+	public static List<Post> getLastPosts(int amount)
+	{
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		List<Post> posts = new ArrayList<>();
+
+		try
+		{
+			conn = DbConnection.getInstance();
+			ps = conn.prepareStatement("SELECT * FROM posts ORDER BY time LIMIT ?");
+			ps.setInt(1, amount);
+			
+			//System.out.println(ps.toString());
+
+			ResultSet rs = ps.executeQuery();
+
+			int i =0;
+			while (rs.next())
+			{
+				int id = rs.getInt("id_post");
+				int author = rs.getInt("author");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				long time = rs.getLong("time");
+				
+				//System.out.println("[getLastPosts] " + title+" i: "+i);
+
+				posts.add(new Post(id, author, title ,content, time));
+				i++;
+
+			}
+		}
+		catch (SQLException ex)
+		{
+			System.out.println("[getLastPosts] " + ex.getMessage());
 			return posts;
 		}
 		finally
