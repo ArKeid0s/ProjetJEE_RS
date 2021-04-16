@@ -1,8 +1,6 @@
 package com.proj.post;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Post {
@@ -72,7 +70,6 @@ public class Post {
 	public void setAuthorID(int authorID) {
 		this.authorID = authorID;
 	}
-
 
 	public String getDate() {
 		Timestamp ts=new Timestamp(time);

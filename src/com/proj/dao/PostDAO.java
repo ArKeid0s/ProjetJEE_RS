@@ -99,7 +99,7 @@ public class PostDAO {
 
 			ResultSet rs = ps.executeQuery();
 
-			int i =0;
+			//int i =0;
 			while (rs.next())
 			{
 				int id = rs.getInt("id_post");
@@ -111,7 +111,7 @@ public class PostDAO {
 				//System.out.println("[getLastPosts] " + title+" i: "+i);
 
 				posts.add(new Post(id, author, title ,content, time));
-				i++;
+				//i++;
 
 			}
 		}
