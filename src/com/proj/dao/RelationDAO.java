@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.proj.post.Post;
 import com.proj.user.User;
 import com.proj.util.DbConnection;
 

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets%22%3E">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Home Page</title>
@@ -16,7 +16,10 @@
 	</div>
 	<h:form>
 		<p>Welcome #{login.username}</p>
-		<p>First name : #{login.userConnected.getFirstname()}</p>
+		<p>ID : #{login.id}</p>
+		<p>First name : #{login.firstname}</p>
+		<p>Last name : #{login.lastname}</p>
+		<p>Email name : #{login.email}</p>
 		<h:commandLink action="#{login.logout}" value="Logout"></h:commandLink>
 	</h:form>
 </h:body>
