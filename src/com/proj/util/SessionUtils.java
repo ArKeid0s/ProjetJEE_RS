@@ -36,8 +36,11 @@ public class SessionUtils
 	/* Parameters attributes getters */
 	public static User getUser()
 	{
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		return (User) session.getAttribute("user");
+		HttpSession session = getSession();
+		if(session!=null && session.getAttribute("user")!=null) {
+			return (User) session.getAttribute("user");
+		}
+		else return null;
 	}
 
 }

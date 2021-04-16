@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>New relations</title>
+</h:head>
+<h:body>
+	<div style="border-width: 1px; border-style: solid; height: 25%">
+		<ui:insert name="header">
+			<ui:include src="templates/header.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+	<fieldset>
+		<legend>New relations</legend>
+		<h:form>
+			<h:commandButton value="Actualiser"
+				action="#{newRelations.refreshNewRelations}" />
+			<br />
+			<br />
+			<ui:repeat value="#{newRelations.allNewRelations}" var="user">
+				<fieldset>
+					<legend>#{user.username}</legend>
+					<p>#{user.firstname}</p>
+				</fieldset>
+			</ui:repeat>
+		</h:form>
+	</fieldset>
+</h:body>
+</html>
