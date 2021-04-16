@@ -1,15 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <faces-config version="2.3"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
-
+          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+ 
 	<navigation-rule>
-		<from-view-id>/creationPost.xhtml</from-view-id>
+		<from-view-id>/webapp/login.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>createPost</from-outcome>
-			<to-view-id>/creationPost.xhtml</to-view-id>
-			<redirect />
+			<from-outcome>success</from-outcome>
+			<to-view-id>/webapp/homePage.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 
+	<navigation-rule>
+		<from-view-id>/webapp/homePage.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/webapp/login.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+ 
 </faces-config>

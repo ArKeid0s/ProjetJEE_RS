@@ -1,4 +1,4 @@
-package com.proj.dao;
+package com.proj.util;
 
 import java.sql.*;
 
