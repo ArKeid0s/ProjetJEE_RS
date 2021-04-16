@@ -1,7 +1,14 @@
 package com.proj.user;
 
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import com.proj.dao.PostDAO;
+import com.proj.post.Post;
+
 public class User {
-	/* test */
+
 	/* Primary key represent the user */
 	private int id;
 	
@@ -10,6 +17,8 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String email;
+	
+	private List <Post> relationsPosts;
 	
 	/* ID Getter Setter */
 	public int getId() {
@@ -57,5 +66,19 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	
+	public List<Post> getRelationsPosts() {
+		return relationsPosts;
+	}
+	public void setRelationsPosts(List<Post> relationsPosts) {
+		this.relationsPosts = relationsPosts;
+	}
+	
+	@PostConstruct
+	public void initRelationsPosts(){
+		final List<Post> posts = PostDAO.getRelationsPostsOf(this);
+		this.setRelationsPosts(posts);
 	}
 }
