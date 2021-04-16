@@ -45,5 +45,20 @@ public class NewRelations implements Serializable
 		this.initNewRelations();
 	}
 	
+	public void createRelation(String targetUserIDStr) {
+		User user;
+		if((user=SessionUtils.getUser())==null) return;
+		
+		try {
+			int targetUserID = Integer.valueOf(targetUserIDStr);
+			RelationDAO.insert(user.getId(), targetUserID);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		this.initNewRelations();
+	}
+	
 
 }

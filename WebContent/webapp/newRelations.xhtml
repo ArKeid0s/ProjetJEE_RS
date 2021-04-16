@@ -23,8 +23,10 @@
 			<ui:repeat value="#{newRelations.allNewRelations}" var="user">
 				<fieldset>
 					<legend>#{user.username}</legend>
-					<p>#{user.firstname}</p>
+					<p>#{user.firstname} #{user.lastname}</p>
+					<br /> #{user.id}
 				</fieldset>
+				<h:commandButton value="Follow" action="#{newRelations.createRelation(user.id)}"/>
 			</ui:repeat>
 		</h:form>
 	</fieldset>
