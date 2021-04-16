@@ -11,17 +11,17 @@ public class DbConnection {
 	/**
 	 * DSN to connect to the database
 	 */
-	static final String DB_URL = "jdbc:mysql://localhost/coursl3";
+	static final String DB_URL = "jdbc:mysql://localhost/projetjee";
 
 	/**
 	 * Username to connect to the database
 	 */
-	static final String USER = "yourUsername";
+	static final String USER = "root";
 
 	/**
 	 * Password to connect to the database
 	 */
-	static final String PASS = "yourPassword";
+	static final String PASS = "";
 
 	/**
 	 * The connection to the database

@@ -1,25 +1,36 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="https://www.w3.org/1999/xhtml"
-	xmlns:h="https://java.sun.com/jsf/html">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets%22%3E">
 <h:head>
-	<title>login</title>
+	<title>Creation post</title>
 </h:head>
 <h:body>
 	<h:form>
-		<h3>JSF Creation post</h3>
-		<h:outputText value="Title" />
-		<h:inputText id="title" value="#{createPost.title}"></h:inputText>
-		<h:message for="title"></h:message>
-		<br></br><br></br>
-		
-		<h:outputText value="Content" />
-		<h:inputSecret id="content" value="#{createPost.content}"></h:inputSecret>
-		<h:message for="content"></h:message>
-		<br></br><br></br>
-		
-		<h:commandButton action="#{createPost.validateCreationRequest}"
-			value="Create the post"></h:commandButton>
+		<fieldset>
+			<legend>Creation of a post</legend>
+
+
+			<h:outputLabel for="title"> Title of the post:<span
+					class="requis"></span>
+			</h:outputLabel>
+			<h:inputText id="title" value="#{createPost.title}" required="true"
+				size="20" maxlength="60" />
+			<br />
+
+			<h:outputLabel for="content"> Content:</h:outputLabel>
+			<h:inputText id="content" value="#{createPost.content}"
+				required="true" size="20" maxlength="600" />
+			<br />
+
+			<h:commandButton value="Create"
+				action="#{createPost.validateCreationRequest}" />
+
+		</fieldset>
+
 	</h:form>
+
 </h:body>
 </html>

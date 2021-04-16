@@ -8,7 +8,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import com.proj.dao.LoginDAO;
 import com.proj.dao.PostDAO;
 import com.proj.post.Post;
 import com.proj.user.User;

@@ -12,46 +12,42 @@ import com.proj.user.User;
 
 public class PostDAO {
 
-	
+
 	public static boolean insert(Post post)
 	{
 		Connection conn = null;
 		PreparedStatement ps = null;
+		String sql = "INSERT INTO posts (author, title, content, time) VALUES (?,?,?,?)";
 
 		try
 		{
 			conn = DbConnection.getInstance();
-			ps = conn.prepareStatement("INSERT INTO posts (author, title, content, time) VALUES (?,?,?,?)");
+			ps = conn.prepareStatement(sql); 
 			ps.setInt(1, post.getAuthor());
 			ps.setString(2, post.getTitle());
 			ps.setString(3, post.getContent());
 			ps.setLong(4, post.getTime());
-
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.next())
-			{
-				/* If result found -> valid inputs */
-				return true;
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[INSERT POST] "+e.getMessage());
+			return false;
+		} finally {
+			if(ps != null){
+				try{
+					ps.close();
+				} catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 		}
-		catch (SQLException ex)
-		{
-			System.out.println("insert post error => " + ex.getMessage());
-			return false;
-		}
-		finally
-		{
-			DbConnection.close();
-		}
-		return false;
+		return true;
 	}
-	
+
 	public static List<Post> getRelationsPostsOf(User user)
 	{
 		Connection conn = null;
 		PreparedStatement ps = null;
-		
+
 		List<Post> posts = new ArrayList<>();
 
 		try
@@ -69,14 +65,14 @@ public class PostDAO {
 				String title = rs.getString("title");
 				String content = rs.getString("content");
 				long time = rs.getLong("time");
-				
+
 				posts.add(new Post(id, author, title ,content, time));
-				
+
 			}
 		}
 		catch (SQLException ex)
 		{
-			System.out.println("getRelationsPostsOf error => " + ex.getMessage());
+			System.out.println("[getRelationsPostsOf] " + ex.getMessage());
 			return posts;
 		}
 		finally

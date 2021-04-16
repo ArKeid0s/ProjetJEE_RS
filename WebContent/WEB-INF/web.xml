@@ -12,6 +12,11 @@ version="4.0">
 	</welcome-file-list>
 	
 	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
+	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
@@ -21,6 +26,7 @@ version="4.0">
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>FacesServlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
