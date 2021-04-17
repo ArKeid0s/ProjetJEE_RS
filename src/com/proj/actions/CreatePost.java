@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 import com.proj.dao.PostDAO;
 import com.proj.post.Post;
@@ -77,7 +76,6 @@ public class CreatePost implements Serializable
 		}
 		else
 		{
-			HttpSession session = SessionUtils.getSession();
 			User user;
 			if((user = SessionUtils.getUser())!=null) {
 				int author = user.getId();
