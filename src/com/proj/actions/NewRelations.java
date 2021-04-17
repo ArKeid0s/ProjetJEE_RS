@@ -1,6 +1,7 @@
 package com.proj.actions;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -16,39 +17,109 @@ public class NewRelations implements Serializable
 {
 
 	private static final long serialVersionUID = 782115604435416963L;
-	private int newRelationsPerRefresh = 10;
-	private List<User> allNewRelations;
 
-	public List<User> getAllNewRelations() {
-		this.initNewRelations();
-		return allNewRelations;
-	}
+	private List<User> allRelations;
 
-	public void setAllNewRelations(List<User> allNewRelations) {
-		this.allNewRelations = allNewRelations;
-	}
+	private List<User> currentDisplay;
+
+	private int amountPerRefresh = 10;
+
+	private int page=0;
+
+	private boolean hasNextPage=true;
 	
-	public void initNewRelations() {
+	public NewRelations() {
+		this.initRelations();
+	}
+
+	public List<User> getAllRelations() {
+		return allRelations;
+	}
+
+	public void setAllRelations(List<User> allRelations) {
+		this.allRelations = allRelations;
+	}
+
+	public void initRelations() {
 		User user;
 		if((user=SessionUtils.getUser())!=null) {
-			this.setAllNewRelations(RelationDAO.getRandomNewRelationsFor(user, newRelationsPerRefresh));
+			this.setAllRelations(RelationDAO.getRandomNewRelationsFor(user, 500));
+			currentDisplay = new ArrayList<>();
+			updateCurrentDisplay(page);
+		}
+		else {
+			allRelations = new ArrayList<>();
+			currentDisplay = new ArrayList<>();
+		}
+
+	}
+	
+	public void backToStartRelations() {
+		page=0;
+		updateCurrentDisplay(page);
+	}
+
+	public void nextPageRelations() {
+		page++;
+		this.initRelations();
+	}
+
+	public void updateCurrentDisplay(int page) {
+		currentDisplay.clear();
+		for(int i= page*amountPerRefresh; i < (page+1)*amountPerRefresh; i++) {
+			if(allRelations.size()<=i) break;
+			else {
+				currentDisplay.add(allRelations.get(i));
+			}
 		}
 	}
-	
-	public void refreshNewRelations() {
-		this.initNewRelations();
+
+	public List<User> getCurrentDisplay() {
+		this.initRelations();
+		return currentDisplay;
 	}
-	
-	public void createRelation(String targetUserIDStr) {
+
+	public void setCurrentDisplay(List<User> currentDisplay) {
+		this.currentDisplay = currentDisplay;
+	}
+
+	public boolean getHasNextPage() {
+		hasNextPage = (allRelations.size() >= (page+1)*amountPerRefresh) && allRelations.size()!=0;
+		return hasNextPage;
+	}
+
+	public void setHasNextPage(boolean hasNextPage) {
+		this.hasNextPage = hasNextPage;
+	}
+
+	public void creationRelation(String targetUserIDStr) {
 		User user;
 		if((user=SessionUtils.getUser())==null) return;
-		
+
 		try {
 			int targetUserID = Integer.valueOf(targetUserIDStr);
 			RelationDAO.insert(user.getId(), targetUserID);
+			
+			this.deleteRelationWith(targetUserID);
+			updateCurrentDisplay(page);
+			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+
+		
 	}
+	
+	public void deleteRelationWith(int targetUserID) {
+		User toDelete = null;
+		for(User u : allRelations) {
+			if(u.getId()==targetUserID) {
+				toDelete=u;
+				break;
+			}
+		}
+		if(toDelete!=null) allRelations.remove(toDelete);
+	}
+
 }

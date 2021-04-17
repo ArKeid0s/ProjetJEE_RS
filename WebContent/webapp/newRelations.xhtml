@@ -16,11 +16,13 @@
 	<fieldset>
 		<legend>New relations</legend>
 		<h:form>
-			<h:commandButton value="Refresh"
-				action="#{newRelations.refreshNewRelations}" />
+			<h:commandButton value="Back to start"
+				action="#{newRelations.backToStartRelations}" />
+				<h:commandButton value="Next page"
+				action="#{newRelations.nextPageRelations}" rendered="#{newRelations.hasNextPage}" />
 			<br />
 			<br />
-			<ui:repeat value="#{newRelations.allNewRelations}" var="user">
+			<ui:repeat value="#{newRelations.currentDisplay}" var="user">
 				<fieldset>
 					<legend>#{user.username}</legend>
 					<p>#{user.firstname} #{user.lastname}</p>
@@ -31,8 +33,7 @@
 						(#{userRelation.username})
 					</ui:repeat>
 					<br />
-					<h:commandButton value="Follow"
-						action="#{newRelations.createRelation(user.id)}" />
+					<h:commandButton value="Follow" action="#{newRelations.creationRelation(user.id)}" />
 				</fieldset>
 			</ui:repeat>
 		</h:form>

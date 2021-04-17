@@ -84,6 +84,12 @@ public class CreatePost implements Serializable
 				Post post = new Post(author, title, content, System.currentTimeMillis());
 
 				PostDAO.insert(post);
+				
+				this.title="";
+				this.content="";
+				
+				error="Post created !";
+				
 				return "createPost";
 			}			
 			else {

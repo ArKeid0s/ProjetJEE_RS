@@ -77,7 +77,7 @@ public class RelationDAO {
 		try
 		{
 			conn = DbConnection.getInstance();
-			ps = conn.prepareStatement("SELECT * FROM users WHERE user_id NOT IN (SELECT target_user_id FROM relations WHERE main_user_id=?) AND user_id!=? ORDER BY RAND() LIMIT ?");
+			ps = conn.prepareStatement("SELECT * FROM users WHERE user_id NOT IN (SELECT target_user_id FROM relations WHERE main_user_id=?) AND user_id!=? LIMIT ?");
 			ps.setInt(1, user.getId());
 			ps.setInt(2, user.getId());
 			ps.setInt(3, amount);
