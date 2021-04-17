@@ -1,0 +1,91 @@
+--
+-- Base de données :  `projetjee`
+--
+
+CREATE DATABASE IF NOT EXISTS `projetjee` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `projetjee`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `posts`
+--
+
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id_post` int(11) NOT NULL AUTO_INCREMENT,
+  `author` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `content` text NOT NULL,
+  `time` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_post`)
+);
+
+--
+-- Déchargement des données de la table `posts`
+--
+
+INSERT INTO `posts` (`id_post`, `author`, `title`, `content`, `time`) VALUES
+(2, 14, 'Jai gagné au loto', 'Salut juste pour vous dire que j\'ai gagné au loto', 1618683765605),
+(3, 15, 'Jai un nouveau copain', 'Salut les meufs jai un nouveau mek no rage', 1618683835405),
+(4, 16, 'Coucou', 'coucou jsuis nouvelle sur le site', 1618683903468),
+(5, 16, 'coucou2', 'Juste pour vous redire coucou car c\'est cool', 1618683917115),
+(6, 18, 'Ma soeur , ma femme', 'Rien a dire de plus', 1618684065603),
+(7, 18, 'Le nord', 'Il fait un peu froid mais on adore', 1618684111515);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `relations`
+--
+
+DROP TABLE IF EXISTS `relations`;
+CREATE TABLE IF NOT EXISTS `relations` (
+  `id_relation` int(11) NOT NULL AUTO_INCREMENT,
+  `main_user_id` int(11) NOT NULL,
+  `target_user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id_relation`)
+);
+
+--
+-- Déchargement des données de la table `relations`
+--
+
+INSERT INTO `relations` (`id_relation`, `main_user_id`, `target_user_id`) VALUES
+(1, 14, 12),
+(2, 15, 12),
+(3, 15, 14),
+(4, 16, 14),
+(5, 18, 16),
+(6, 19, 18);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  PRIMARY KEY (`user_id`)
+);
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `firstname`, `lastname`, `email`, `password`) VALUES
+(12, 'Ana69', 'Ana', 'Laba', 'AnaLaba@gmail.com', 'ana'),
+(14, 'Patrick75', 'Patrick', 'Lamer', 'PatrickLamer@gmail.com', 'patrick'),
+(15, 'MaineG', 'Marine', 'Godu', 'Marineeeeee@gmail.com', 'marine'),
+(16, 'KolaPandi', 'Karoline', 'Dyupon', 'Karo@gmail.com', 'karoline'),
+(17, 'Hugod', 'Hugo', 'Deus', 'HugoTheGod', 'hugo'),
+(18, 'xXKevinXx', 'Kevin', 'duNord', 'KevinLeChti@gmail.com', 'kevin'),
+(19, 'Paulux', 'Paul', 'Jauviet', 'Pauljaujau@gmail.com', 'paul');
+COMMIT;
