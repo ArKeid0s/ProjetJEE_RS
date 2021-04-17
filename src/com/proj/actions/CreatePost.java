@@ -3,7 +3,10 @@ package com.proj.actions;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import com.proj.dao.PostDAO;
 import com.proj.post.Post;
@@ -24,9 +27,17 @@ public class CreatePost implements Serializable
 	private String content;
 	private long time;
 
-	private String error="";
+	private String msg;
 
+	public String getMsg()
+	{
+		return msg;
+	}
 
+	public void setMsg(String msg)
+	{
+		this.msg = msg;
+	}
 
 	public int getAuthor() {
 		return author;
@@ -64,44 +75,32 @@ public class CreatePost implements Serializable
 	public String validateCreationRequest()
 	{
 		if(this.title.isEmpty()) {
-			//FacesContext.getCurrentInstance().addMessage("myForm:newPassword1", new FacesMessage("Error empty title"));
-			error="Error empty title";
-			return null;
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Incorrect Username and Password", "Please enter a correct Username and Password"));
+			return "createPost";
 		}
 		else if(this.content.isEmpty()) {
-			//FacesContext.getCurrentInstance().addMessage("myForm:newPassword1", new FacesMessage("Error empty content"));
-			error="Error empty content";
-			return null;
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Incorrect Username and Password", "Please enter a correct Username and Password"));
+			return "createPost";
 		}
 		else
 		{
+			HttpSession session = SessionUtils.getSession();
 			User user;
-			if((user = SessionUtils.getUser())!=null) {
-				int author = user.getId();
-				//int author = 0;
+			//if((user = SessionUtils.getUser())!=null) {
+			//int author = user.getId();
+			int author = 0;
 
-				Post post = new Post(author, title, content, System.currentTimeMillis());
+			Post post = new Post(author, title, content, System.currentTimeMillis());
 
-				PostDAO.insert(post);
-				
-				error="Post "+title+" created !";
-				
-				this.title="";
-				this.content="";
-				
-				return "createPost";
-			}			
-			else {
-				return "login";
-			}
+			PostDAO.insert(post);
+			return "createPost";
+			//			}			
+			//			else {
+			//				return "login";
+			//			}
 		}
 	}
 
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
-	}
 }
