@@ -28,8 +28,6 @@ public class Register implements Serializable
 	private boolean success = false;
 	
 	private UserDao userDao;
-	
-	private boolean success = false;
 
 	private String error = "";
 
