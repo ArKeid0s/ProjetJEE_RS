@@ -109,24 +109,28 @@ public class Register implements Serializable
 	}
 
 	User userRegistered = new User();
+	HttpSession session = SessionUtils.getSession();
+	User userConnected;
 	
 	// Validate login
 	public void proceedRegisterRequest()
 	{
-		userDao = new DatabaseUserDao();
-		userRegistered.setId(0);
-		userRegistered.setUsername(username);
-		userRegistered.setFirstname(firstname);
-		userRegistered.setLastname(lastname);
-		userRegistered.setEmail(email);
-		userRegistered.setPwd(pwd);
-		
-		
-		HttpSession session = SessionUtils.getSession();
-		userDao.insert(userRegistered);
-		
-		userRegistered = userDao.findByUsernamePwd(username, pwd);
-		session.setAttribute("user", userRegistered);
+		userConnected = (User) session.getAttribute("user");
+		if (session.getAttribute("user") == null)
+		{
+			userDao = new DatabaseUserDao();
+			userRegistered.setId(0);
+			userRegistered.setUsername(username);
+			userRegistered.setFirstname(firstname);
+			userRegistered.setLastname(lastname);
+			userRegistered.setEmail(email);
+			userRegistered.setPwd(pwd);
+
+			userDao.insert(userRegistered);
+
+			userRegistered = userDao.findByUsernamePwd(username, pwd);
+			session.setAttribute("user", userRegistered);
+		}
 		
 	}
 	
@@ -141,14 +145,12 @@ public class Register implements Serializable
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Username and/or Email already taken",
 						"Please enter a different Username and/or Email"));
 				userDao.remove(userRegistered);
-				HttpSession session = SessionUtils.getSession();
-				session.invalidate();
+				session.setAttribute("user", userConnected);
 				return "login";
 			}
 			else
-			{				
-				return "success";
-
+			{
+				return "success";		
 			}
 		}
 		return "login";

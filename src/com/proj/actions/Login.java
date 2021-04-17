@@ -136,7 +136,7 @@ public class Login implements Serializable
 		userDao = new DatabaseUserDao();
 		userConnected = userDao.findByUsernamePwd(username, pwd);
 		HttpSession session = SessionUtils.getSession();
-		if (userConnected != null && loggedIn == false)
+		if (userConnected != null && loggedIn == false && session.getAttribute("user") == null)
 		{
 			//Set login variables to access them
 			setId(userConnected.getId());
