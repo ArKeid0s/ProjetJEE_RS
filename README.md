@@ -1,7 +1,7 @@
 # ProjetJEE_RS
  Projet JEE linkedIn du pauvre
 
-##Installation Details :
+## Installation Details :
 Project Java Version  : Java-SE 1.8
 Project Facets :
 - Dynamic Web Module : 4.0
