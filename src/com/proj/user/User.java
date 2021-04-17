@@ -69,12 +69,11 @@ public class User {
 		this.email = email;
 	}
 	
-	public Collection<User> commonRelations(int user1ID, int user2ID) {
+	public Collection<User> commonRelations(int user2ID) {
 		UserDao uDao = new DatabaseUserDao();
-		User user1 = uDao.findById(user1ID);
 		User user2 = uDao.findById(user2ID);
 		
-		Collection<User> user1Connections = new ArrayList<User>(RelationDAO.getRelationsOf(user1)); 
+		Collection<User> user1Connections = new ArrayList<User>(RelationDAO.getRelationsOf(this)); 
 		Collection<User> user2Connections = new ArrayList<User>(RelationDAO.getRelationsOf(user2)); 
 		
 		user1Connections.retainAll(user2Connections);
