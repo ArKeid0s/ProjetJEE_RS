@@ -34,6 +34,11 @@
 			<to-view-id>/webapp/homePage.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>fail</from-outcome>
+			<to-view-id>/webapp/register.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
 	</navigation-rule>
  
 </faces-config>

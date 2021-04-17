@@ -15,11 +15,11 @@
 		</ui:insert>
 	</div>
 	<h:form>
-		<p>Welcome #{userDetails.username}</p>
-		<p>ID : #{userDetails.id}</p>
-		<p>First name : #{userDetails.firstname}</p>
-		<p>Last name : #{userDetails.lastname}</p>
-		<p>Email name : #{userDetails.email}</p>
+		<p>Welcome <h:outputText value="#{userDetails.username}"/> </p> 
+		<p>ID : <h:outputText value="#{userDetails.id}"/> </p>
+		<p>First name : <h:outputText value="#{userDetails.firstname}"/> </p>
+		<p>Last name : <h:outputText value="#{userDetails.lastname}"/> </p>
+		<p>Email name : <h:outputText value="#{userDetails.email}"/> </p>
 		<h:commandLink action="#{login.logout}" value="Logout">
 			<f:actionListener binding="#{userDetails.clearUserDetails()}"/>
 		</h:commandLink>

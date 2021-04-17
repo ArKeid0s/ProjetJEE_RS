@@ -15,13 +15,13 @@
 	</div>
 	<h:form>
 		<h3>Login</h3>
-		<h:outputText value="Username" />
+		<h:outputText value="Username " />
 		<h:inputText id="username" value="#{login.username}"></h:inputText>
 		<h:message for="username"></h:message>
 		<br></br>
 		<br></br>
 
-		<h:outputText value="Password" />
+		<h:outputText value="Password " />
 		<h:inputSecret id="password" value="#{login.pwd}"></h:inputSecret>
 		<h:message for="password"></h:message>
 		<br></br>
@@ -31,6 +31,10 @@
 			<f:actionListener binding="#{login.proceedLoginRequest()}"/>
 			<f:actionListener binding="#{userDetails.updateUserDetails()}"/>
 		</h:commandButton>
+		
+		<br/>
+		<br/>
+		<h:outputText value="#{login.error}"/>
 	</h:form>
 </h:body>
 </html>
