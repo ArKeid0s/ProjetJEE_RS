@@ -25,6 +25,8 @@ public class Register implements Serializable
 	private String email;
 	private String pwd;
 
+	private boolean success = false;
+	
 	private UserDao userDao;
 
 	private String error = "";
@@ -110,7 +112,7 @@ public class Register implements Serializable
 	HttpSession session = SessionUtils.getSession();
 	User userConnected;
 
-	// Validate login
+	// Proceed login verifications
 	public void proceedRegisterRequest()
 	{
 		userConnected = (User) session.getAttribute("user");
@@ -124,34 +126,30 @@ public class Register implements Serializable
 			userRegistered.setEmail(email);
 			userRegistered.setPwd(pwd);
 
+			for (User userTaken : userDao.fetchAll())
+			{
+				if (userTaken.getUsername().equals(userRegistered.getUsername()) || userTaken.getEmail().equals(userRegistered.getEmail()))
+				{
+					success = false;
+					error = "Username and/or Email already taken";
+					return;
+				}
+			}
+			
+			success = true;
 			userDao.insert(userRegistered);
-
+			
 			userRegistered = userDao.findByUsernamePwd(username, pwd);
 			session.setAttribute("user", userRegistered);
 		}
 
 	}
 
+	/* Validate by sending string to register.xhtml */
 	public String validateRegisterRequest()
 	{
-		userDao = new DatabaseUserDao();
-
-		for (User userTaken : userDao.fetchAll())
-		{
-			if (userTaken.getUsername().equals(userRegistered.getUsername()) || userTaken.getEmail().equals(userRegistered.getEmail()))
-			{
-				/* Similar user already exists then reload the form */
-				error = "Username and/or Email already taken";
-				userDao.remove(userRegistered);
-				session.setAttribute("user", userConnected);
-				return "fail";
-			}
-			else
-			{
-				return "success";
-			}
-		}
-		return "login";
+		if(success) return "success";
+		else return "fail";
 	}
 
 }

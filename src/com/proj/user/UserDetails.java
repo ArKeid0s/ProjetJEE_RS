@@ -88,6 +88,7 @@ public class UserDetails implements Serializable
 		this.pwd = pwd;
 	}
 	
+	/* Update the local variables with the user currently logged in and stored in the session variables */
 	public void updateUserDetails() {
 		HttpSession session = SessionUtils.getSession();
 		User userConnected = (User) session.getAttribute("user");
