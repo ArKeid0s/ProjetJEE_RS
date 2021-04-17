@@ -46,7 +46,6 @@ public class MyRelations implements Serializable
 			this.setAllRelations(RelationDAO.getRelationsOf(user));
 			currentDisplay = new ArrayList<>();
 			updateCurrentDisplay(page);
-			hasNextPage = allRelations.size() >= (page+1)*amountPerRefresh;
 		}
 		else {
 			allRelations = new ArrayList<>();
@@ -58,7 +57,6 @@ public class MyRelations implements Serializable
 	public void backToStartRelations() {
 		page=0;
 		updateCurrentDisplay(page);
-		hasNextPage = allRelations.size() >= (page+1)*amountPerRefresh;
 	}
 
 	public void refreshRelations() {
@@ -68,7 +66,6 @@ public class MyRelations implements Serializable
 	public void nextPageRelations() {
 		page++;
 		updateCurrentDisplay(page);
-		hasNextPage = allRelations.size() >= (page+1)*amountPerRefresh;
 	}
 
 	public void updateCurrentDisplay(int page) {
@@ -91,6 +88,7 @@ public class MyRelations implements Serializable
 	}
 
 	public boolean getHasNextPage() {
+		hasNextPage = (allRelations.size() >= (page+1)*amountPerRefresh) && allRelations.size()!=0;
 		return hasNextPage;
 	}
 
@@ -108,7 +106,6 @@ public class MyRelations implements Serializable
 			
 			this.deleteRelationWith(targetUserID);
 			updateCurrentDisplay(page);
-			hasNextPage = allRelations.size() >= (page+1)*amountPerRefresh;
 			
 		}
 		catch(Exception e) {

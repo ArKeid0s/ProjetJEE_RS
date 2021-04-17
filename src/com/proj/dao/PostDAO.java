@@ -54,7 +54,7 @@ public class PostDAO {
 		try
 		{
 			conn = DbConnection.getInstance();
-			ps = conn.prepareStatement("SELECT * FROM relations INNER JOIN posts ON target_user_id=author WHERE main_user_id=?");
+			ps = conn.prepareStatement("SELECT * FROM relations INNER JOIN posts ON target_user_id=author WHERE main_user_id=? ORDER BY time DESC");
 			ps.setInt(1, user.getId());
 
 			ResultSet rs = ps.executeQuery();
@@ -93,7 +93,7 @@ public class PostDAO {
 		try
 		{
 			conn = DbConnection.getInstance();
-			ps = conn.prepareStatement("SELECT * FROM posts ORDER BY time LIMIT ?");
+			ps = conn.prepareStatement("SELECT * FROM posts ORDER BY time DESC LIMIT ?");
 			ps.setInt(1, amount);
 			
 			//System.out.println(ps.toString());

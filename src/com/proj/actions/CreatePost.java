@@ -63,7 +63,6 @@ public class CreatePost implements Serializable
 	// Validate login
 	public String validateCreationRequest()
 	{
-		System.out.println("passseee1");
 		if(this.title.isEmpty()) {
 			//FacesContext.getCurrentInstance().addMessage("myForm:newPassword1", new FacesMessage("Error empty title"));
 			error="Error empty title";
@@ -85,10 +84,10 @@ public class CreatePost implements Serializable
 
 				PostDAO.insert(post);
 				
+				error="Post "+title+" created !";
+				
 				this.title="";
 				this.content="";
-				
-				error="Post created !";
 				
 				return "createPost";
 			}			

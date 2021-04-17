@@ -3,6 +3,9 @@ package com.proj.post;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.proj.dao.DatabaseUserDao;
+import com.proj.user.User;
+
 public class Post {
 
 	private int id;
@@ -77,9 +80,10 @@ public class Post {
 		return date.toString();
 	}
 	
-//	public User getAuthor() {
-//		return authorID;
-//	}
+	public User getAuthor() {
+		DatabaseUserDao	userDao = new DatabaseUserDao();
+		return userDao.findById(authorID);
+	}
 
 
 }
