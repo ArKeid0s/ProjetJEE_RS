@@ -17,10 +17,6 @@ public class GeneralFeed implements Serializable
 	private static final long serialVersionUID = 782115604435416963L;
 
 	private List<Post> allPosts;
-	
-	public GeneralFeed() {
-		this.initPosts();
-	}
 
 	public List<Post> getAllPosts() {
 		this.initPosts();

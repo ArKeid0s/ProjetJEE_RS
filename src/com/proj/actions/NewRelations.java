@@ -16,15 +16,8 @@ public class NewRelations implements Serializable
 {
 
 	private static final long serialVersionUID = 782115604435416963L;
-	
-	
 	private int newRelationsPerRefresh = 10;
-
 	private List<User> allNewRelations;
-	
-	public NewRelations() {
-		this.initNewRelations();
-	}
 
 	public List<User> getAllNewRelations() {
 		this.initNewRelations();
@@ -57,9 +50,5 @@ public class NewRelations implements Serializable
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-
-		this.initNewRelations();
 	}
-	
-
 }

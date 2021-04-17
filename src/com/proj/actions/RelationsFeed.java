@@ -17,14 +17,9 @@ public class RelationsFeed implements Serializable
 {
 
 	private static final long serialVersionUID = 782115604435416963L;
-
 	private List<Post> allPosts;
 	
-	public RelationsFeed() {
-
-		this.initPosts();
-	}
-
+	
 	public List<Post> getAllPosts() {
 		this.initPosts();
 		return allPosts;
