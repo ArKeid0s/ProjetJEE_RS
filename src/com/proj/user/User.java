@@ -74,10 +74,8 @@ public class User {
 		UserDao uDao = new DatabaseUserDao();
 		User user2 = uDao.findById(user2ID);
 		
-		List<User> user1Connections = RelationDAO.getRelationsOf(this); 
-		//System.out.println("size1: "+user1Connections.size());
-		List<User> user2Connections =RelationDAO.getRelationsOf(user2); 
-		//System.out.println("size2: "+user2Connections.size());
+		List<User> user1Connections = RelationDAO.getRelationsOf(this);
+		List<User> user2Connections =RelationDAO.getRelationsOf(user2);
 		
 		List<User> result = new ArrayList<>();
 		
@@ -90,8 +88,6 @@ public class User {
 				
 			}
 		}
-		
-		//System.out.println("common: "+user2ID+" size:"+result.size());
 		return result;
 	}
 	

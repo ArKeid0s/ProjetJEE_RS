@@ -109,6 +109,7 @@ public class Login implements Serializable
 		this.error = error;
 	}
 	
+	/* Return the rigth string depending on the login success or not */
 	public String validateLoginRequest() {
 		userDao = new DatabaseUserDao();
 		userConnected = userDao.findByUsernamePwd(username, pwd);
@@ -127,6 +128,7 @@ public class Login implements Serializable
 		}
 	}
 	
+	/* Verify if the user can log in and set local variables */
 	public void proceedLoginRequest()
 	{
 		userDao = new DatabaseUserDao();

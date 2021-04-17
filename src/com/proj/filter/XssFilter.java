@@ -17,6 +17,10 @@ import javax.servlet.http.HttpServletRequestWrapper;
 public class XssFilter implements Filter
 {
 
+	/*
+	 * This class prevents XSS attacks 
+	 * */
+	
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -56,7 +60,7 @@ public class XssFilter implements Filter
 
             int count = values.length;
             for ( int i = 0; i < count; i++ ) {
-                // On remplace chaque chaîne de caractères
+                // Replace every characters in the string
                 values[i] = removeTags(values[i]);
             }
 
@@ -76,15 +80,15 @@ public class XssFilter implements Filter
         
         private String removeTags( String value ) {
             if ( value != null ) {
-                // On retire le code ASCII 0, au cas ou
+                // Remove the ASCII code 0
                 value = value.replaceAll( "\0", "" );
 
-                // Supprime l'ensemble de tags et des entités existants
+                // Remove the tags
                 for ( Pattern pattern : XSS_PATTERNS ) {
                     value = pattern.matcher( value ).replaceAll( "" );
                 }
                 
-                // Au cas ou les caractères < et > ne seraient pas en nombres pairs
+                // Check if < and > are not in parity
                 value = value.replaceAll( "<", "" );
                 value = value.replaceAll( ">", "" );
             }
