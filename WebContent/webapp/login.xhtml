@@ -14,7 +14,7 @@
 		</ui:insert>
 	</div>
 	<h:form>
-		<h3>JSF Login Logout</h3>
+		<h3>Login</h3>
 		<h:outputText value="Username" />
 		<h:inputText id="username" value="#{login.username}"></h:inputText>
 		<h:message for="username"></h:message>
@@ -27,7 +27,10 @@
 		<br></br>
 		<br></br>
 
-		<h:commandButton action="#{login.validateLoginRequest}" value="Login"></h:commandButton>
+		<h:commandButton action="#{login.validateLoginRequest}" value="Login">
+			<f:actionListener binding="#{login.proceedLoginRequest()}"/>
+			<f:actionListener binding="#{userDetails.updateUserDetails()}"/>
+		</h:commandButton>
 	</h:form>
 </h:body>
 </html>
