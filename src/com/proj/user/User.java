@@ -1,5 +1,11 @@
 package com.proj.user;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import com.proj.dao.DatabaseUserDao;
+import com.proj.dao.RelationDAO;
+import com.proj.dao.UserDao;
+
 public class User {
 	
 	/* Primary key represent the user */
@@ -61,6 +67,17 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Collection<User> commonRelations(int user2ID) {
+		UserDao uDao = new DatabaseUserDao();
+		User user2 = uDao.findById(user2ID);
+		
+		Collection<User> user1Connections = new ArrayList<User>(RelationDAO.getRelationsOf(this)); 
+		Collection<User> user2Connections = new ArrayList<User>(RelationDAO.getRelationsOf(user2)); 
+		
+		user1Connections.retainAll(user2Connections);
+		return user1Connections;
 	}
 	
 }
