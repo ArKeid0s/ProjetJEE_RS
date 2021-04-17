@@ -77,7 +77,6 @@ public class CreatePost implements Serializable
 		}
 		else
 		{
-			HttpSession session = SessionUtils.getSession();
 			User user;
 			if((user = SessionUtils.getUser())!=null) {
 				int author = user.getId();
