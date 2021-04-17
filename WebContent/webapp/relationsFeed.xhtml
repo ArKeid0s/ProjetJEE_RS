@@ -16,16 +16,16 @@
 	<fieldset>
 		<legend>Relation feed</legend>
 		<h:form>
-			<h:commandButton value="Actualiser"
+			<h:commandButton value="Refresh"
 				action="#{relationsFeed.refreshPosts}" />
 			<br />
 			<br />
 			<ui:repeat value="#{relationsFeed.allPosts}" var="post">
 				<fieldset>
-					<legend>#{post.title}</legend>
-					<p>#{post.content}</p>
+					<legend><h:outputText value="#{post.title}"/></legend>
+					<p><h:outputText value="#{post.content}"/></p>
 					<br />
-					<p>#{post.date} by #{post.author.username}</p>
+					<p><h:outputText value="#{post.date}"/> by <h:outputText value="#{post.author.username}"/></p>
 				</fieldset>
 			</ui:repeat>
 		</h:form>

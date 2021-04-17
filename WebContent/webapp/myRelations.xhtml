@@ -24,13 +24,13 @@
 			<br />
 			<ui:repeat value="#{myRelations.currentDisplay}" var="user">
 				<fieldset>
-					<legend>#{user.username}</legend>
-					<p>#{user.firstname} #{user.lastname}</p>
+					<legend><h:outputText value="#{user.username}"/></legend>
+					<p><h:outputText value="#{user.firstname}"/> <h:outputText value="#{user.lastname}"/></p>
 					<br />
-					<p>relationship in common: #{userDetails.user.commonRelations(user.id).size()}</p>
+					<p>relationship in common: <h:outputText value="#{userDetails.user.commonRelations(user.id).size()}"/></p>
 					<br/>
 					<ui:repeat value="#{userDetails.user.commonRelations(user.id)}" var="userRelation">
-						(#{userRelation.username})
+						(<h:outputText value="#{userRelation.username}"/>)
 					</ui:repeat>
 					<br />
 					<h:commandButton value="Delete" action="#{myRelations.removeRelation(user.id)}"/>
