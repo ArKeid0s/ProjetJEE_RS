@@ -3,7 +3,7 @@
 
 ## Installation Details :
 Project Java Version -> Java-SE 1.8
-Project Facets :
+\n Project Facets :
 - Dynamic Web Module : 4.0
 - Java : 1.8
 - JavaScript : 1.0
