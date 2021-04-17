@@ -17,16 +17,12 @@ public class CreatePost implements Serializable
 
 	private static final long serialVersionUID = 782115604435416963L;
 
-	/* TODO: Replace string with user object */
 
 	private int author;
 	private String title;
 	private String content;
 	private long time;
-
 	private String error="";
-
-
 
 	public int getAuthor() {
 		return author;
@@ -60,7 +56,7 @@ public class CreatePost implements Serializable
 		this.time = time;
 	}
 
-	// Validate login
+	// Validate creation login
 	public String validateCreationRequest()
 	{
 		if(this.title.isEmpty()) {

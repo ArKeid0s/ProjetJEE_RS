@@ -59,7 +59,7 @@ public class PostDAO {
 
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next())
+			while (rs.next())
 			{
 				int id = rs.getInt("id_post");
 				int author = rs.getInt("author");

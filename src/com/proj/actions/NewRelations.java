@@ -22,7 +22,7 @@ public class NewRelations implements Serializable
 
 	private List<User> currentDisplay;
 
-	private int amountPerRefresh = 10;
+	private int amountPerRefresh = 5;
 
 	private int page=0;
 
