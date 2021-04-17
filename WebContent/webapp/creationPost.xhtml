@@ -33,7 +33,7 @@
 			<h:commandButton id="mybutton" value="Create"
 				action="#{createPost.validateCreationRequest}" />
 			<br />
-			<p>#{createPost.error}</p>
+			<h:outputText value="#{createPost.error}"/>
 
 		</fieldset>
 
