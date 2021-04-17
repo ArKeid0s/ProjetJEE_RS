@@ -26,6 +26,8 @@ public class Register implements Serializable
 	private String pwd;
 
 	private UserDao userDao;
+	
+	private boolean success = false;
 
 	private String error = "";
 
@@ -108,14 +110,14 @@ public class Register implements Serializable
 
 	User userRegistered = new User();
 	HttpSession session = SessionUtils.getSession();
-	User userConnected;
 
 	// Validate login
 	public void proceedRegisterRequest()
 	{
-		userConnected = (User) session.getAttribute("user");
 		if (session.getAttribute("user") == null)
 		{
+			userDao = new DatabaseUserDao();
+			
 			userDao = new DatabaseUserDao();
 			userRegistered.setId(0);
 			userRegistered.setUsername(username);
@@ -124,34 +126,31 @@ public class Register implements Serializable
 			userRegistered.setEmail(email);
 			userRegistered.setPwd(pwd);
 
+			for (User userTaken : userDao.fetchAll())
+			{
+				if (userTaken.getUsername().equals(userRegistered.getUsername()) || userTaken.getEmail().equals(userRegistered.getEmail()))
+				{
+					/* Similar user already exists then reload the form */
+					error = "Username and/or Email already taken";
+					success = false;
+					return;
+				}
+			}
+			success=true;			
+
 			userDao.insert(userRegistered);
 
 			userRegistered = userDao.findByUsernamePwd(username, pwd);
 			session.setAttribute("user", userRegistered);
 		}
+		success=true;
 
 	}
 
 	public String validateRegisterRequest()
 	{
-		userDao = new DatabaseUserDao();
-
-		for (User userTaken : userDao.fetchAll())
-		{
-			if (userTaken.getUsername().equals(userRegistered.getUsername()) || userTaken.getEmail().equals(userRegistered.getEmail()))
-			{
-				/* Similar user already exists then reload the form */
-				error = "Username and/or Email already taken";
-				userDao.remove(userRegistered);
-				session.setAttribute("user", userConnected);
-				return "fail";
-			}
-			else
-			{
-				return "success";
-			}
-		}
-		return "login";
+		if(success) return "success";
+		else return "fail";
 	}
 
 }

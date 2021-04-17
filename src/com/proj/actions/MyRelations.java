@@ -22,7 +22,7 @@ public class MyRelations implements Serializable
 
 	private List<User> currentDisplay;
 
-	private int amountPerRefresh = 10;
+	private int amountPerRefresh = 5;
 
 	private int page=0;
 
@@ -110,9 +110,7 @@ public class MyRelations implements Serializable
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-		}
-
-		
+		}	
 	}
 	
 	public void deleteRelationWith(int targetUserID) {
@@ -125,8 +123,5 @@ public class MyRelations implements Serializable
 		}
 		if(toDelete!=null) allRelations.remove(toDelete);
 	}
-
-
-
 
 }
