@@ -3,8 +3,6 @@ package com.proj.actions;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +27,7 @@ public class Register implements Serializable
 
 	private UserDao userDao;
 
-	private String msg;
+	private String error = "";
 
 	/* ID Getter Setter */
 	public int getId()
@@ -98,20 +96,20 @@ public class Register implements Serializable
 	}
 
 	/* MESSAGE Getter Setter */
-	public String getMsg()
+	public String getError()
 	{
-		return msg;
+		return error;
 	}
 
-	public void setMsg(String msg)
+	public void setError(String error)
 	{
-		this.msg = msg;
+		this.error = error;
 	}
 
 	User userRegistered = new User();
 	HttpSession session = SessionUtils.getSession();
 	User userConnected;
-	
+
 	// Validate login
 	public void proceedRegisterRequest()
 	{
@@ -131,30 +129,29 @@ public class Register implements Serializable
 			userRegistered = userDao.findByUsernamePwd(username, pwd);
 			session.setAttribute("user", userRegistered);
 		}
-		
+
 	}
-	
-	public String validateRegisterRequest() {
+
+	public String validateRegisterRequest()
+	{
 		userDao = new DatabaseUserDao();
-		
+
 		for (User userTaken : userDao.fetchAll())
 		{
 			if (userTaken.getUsername().equals(userRegistered.getUsername()) || userTaken.getEmail().equals(userRegistered.getEmail()))
 			{
 				/* Similar user already exists then reload the form */
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Username and/or Email already taken",
-						"Please enter a different Username and/or Email"));
+				error = "Username and/or Email already taken";
 				userDao.remove(userRegistered);
 				session.setAttribute("user", userConnected);
-				return "login";
+				return "fail";
 			}
 			else
 			{
-				return "success";		
+				return "success";
 			}
 		}
 		return "login";
 	}
-	
 
 }

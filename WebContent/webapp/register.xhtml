@@ -49,6 +49,10 @@
 			<f:actionListener binding="#{register.proceedRegisterRequest()}" />
 			<f:actionListener binding="#{userDetails.updateUserDetails()}" />
 		</h:commandButton>
+		<br/>
+		<br/>
+		<h:outputText value="#{register.error}" />
+		
 	</h:form>
 </h:body>
 </html>

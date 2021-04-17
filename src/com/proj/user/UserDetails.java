@@ -100,9 +100,6 @@ public class UserDetails implements Serializable
 			setEmail(userConnected.getEmail());
 			setPwd(userConnected.getPwd());			
 		}
-		else {
-			System.out.println("userConnected vide");
-		}
 	}
 	
 	public void clearUserDetails() {

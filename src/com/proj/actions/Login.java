@@ -3,8 +3,6 @@ package com.proj.actions;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -32,7 +30,7 @@ public class Login implements Serializable
 	private UserDao userDao;
 	private User userConnected = null;
 
-	private String msg;
+	private String error = "";
 
 	/* ID Getter Setter */
 	public int getId()
@@ -101,14 +99,14 @@ public class Login implements Serializable
 	}
 
 	/* MESSAGE Getter Setter */
-	public String getMsg()
+	public String getError()
 	{
-		return msg;
+		return error;
 	}
 
-	public void setMsg(String msg)
+	public void setError(String error)
 	{
-		this.msg = msg;
+		this.error = error;
 	}
 	
 	public String validateLoginRequest() {
@@ -120,13 +118,11 @@ public class Login implements Serializable
 			return "success";
 		}
 		else if(loggedIn) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"You are already logged in", "You can see your user details in the home page"));
+			error = "You are already logged in, you can see your user details in the home page";
 			return "login";
 		}
 		else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Incorrect Username and Password", "Please enter a correct Username and Password"));
+			error = "Incorrect Username and Password , please enter a correct Username and Password";
 			return "login";
 		}
 	}
