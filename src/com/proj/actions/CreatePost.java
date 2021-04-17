@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 import com.proj.dao.PostDAO;
 import com.proj.post.Post;

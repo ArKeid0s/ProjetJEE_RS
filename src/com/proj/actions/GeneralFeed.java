@@ -23,6 +23,7 @@ public class GeneralFeed implements Serializable
 	}
 
 	public List<Post> getAllPosts() {
+		this.initPosts();
 		return allPosts;
 	}
 

@@ -27,6 +27,7 @@ public class NewRelations implements Serializable
 	}
 
 	public List<User> getAllNewRelations() {
+		this.initNewRelations();
 		return allNewRelations;
 	}
 

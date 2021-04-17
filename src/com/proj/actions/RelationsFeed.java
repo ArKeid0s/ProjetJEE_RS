@@ -26,6 +26,7 @@ public class RelationsFeed implements Serializable
 	}
 
 	public List<Post> getAllPosts() {
+		this.initPosts();
 		return allPosts;
 	}
 
