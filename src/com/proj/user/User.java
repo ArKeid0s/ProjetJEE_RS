@@ -2,6 +2,8 @@ package com.proj.user;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 import com.proj.dao.DatabaseUserDao;
 import com.proj.dao.RelationDAO;
 import com.proj.dao.UserDao;
@@ -69,15 +71,29 @@ public class User {
 		this.email = email;
 	}
 	
-	public Collection<User> commonRelations(int user2ID) {
+	public List<User> commonRelations(int user2ID) {
 		UserDao uDao = new DatabaseUserDao();
 		User user2 = uDao.findById(user2ID);
 		
-		Collection<User> user1Connections = new ArrayList<User>(RelationDAO.getRelationsOf(this)); 
-		Collection<User> user2Connections = new ArrayList<User>(RelationDAO.getRelationsOf(user2)); 
+		List<User> user1Connections = RelationDAO.getRelationsOf(this); 
+		//System.out.println("size1: "+user1Connections.size());
+		List<User> user2Connections =RelationDAO.getRelationsOf(user2); 
+		//System.out.println("size2: "+user2Connections.size());
 		
-		user1Connections.retainAll(user2Connections);
-		return user1Connections;
+		List<User> result = new ArrayList<>();
+		
+		for(User u : user1Connections) {
+			for(User u2 : user2Connections) {
+				if(u.getId()==u2.getId()) {
+					result.add(u);
+					break;
+				}
+				
+			}
+		}
+		
+		//System.out.println("common: "+user2ID+" size:"+result.size());
+		return result;
 	}
 	
 }

@@ -114,4 +114,16 @@ public class UserDetails implements Serializable
 		setPwd(null);
 	}
 	
+	public User getUser() {
+		User user = new User();
+		user.setId(id);
+		user.setUsername(username);
+		user.setFirstname(firstname);
+		user.setLastname(lastname);
+		user.setEmail(email);
+		user.setPwd(pwd);
+		
+		return user;
+	}
+	
 }

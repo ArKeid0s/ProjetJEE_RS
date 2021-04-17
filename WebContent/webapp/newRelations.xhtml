@@ -24,9 +24,16 @@
 				<fieldset>
 					<legend>#{user.username}</legend>
 					<p>#{user.firstname} #{user.lastname}</p>
-					<br /> 
-					<h:commandButton value="Follow" action="#{newRelations.createRelation(user.id)}"/>
-				</fieldset>		
+					<br />
+					<p>relationship in common: #{userDetails.user.commonRelations(user.id).size()}</p>
+					<br/>
+					<ui:repeat value="#{userDetails.user.commonRelations(user.id)}" var="userRelation">
+						(#{userRelation.username})
+					</ui:repeat>
+					<br />
+					<h:commandButton value="Follow"
+						action="#{newRelations.createRelation(user.id)}" />
+				</fieldset>
 			</ui:repeat>
 		</h:form>
 	</fieldset>
