@@ -108,17 +108,31 @@ public class Register implements Serializable
 		this.msg = msg;
 	}
 
+	User userRegistered = new User();
+	
 	// Validate login
-	public String validateRegisterRequest()
+	public void proceedRegisterRequest()
 	{
 		userDao = new DatabaseUserDao();
-		User userRegistered = new User();
+		userRegistered.setId(0);
 		userRegistered.setUsername(username);
 		userRegistered.setFirstname(firstname);
 		userRegistered.setLastname(lastname);
 		userRegistered.setEmail(email);
 		userRegistered.setPwd(pwd);
-
+		
+		
+		HttpSession session = SessionUtils.getSession();
+		userDao.insert(userRegistered);
+		
+		userRegistered = userDao.findByUsernamePwd(username, pwd);
+		session.setAttribute("user", userRegistered);
+		
+	}
+	
+	public String validateRegisterRequest() {
+		userDao = new DatabaseUserDao();
+		
 		for (User userTaken : userDao.fetchAll())
 		{
 			if (userTaken.getUsername().equals(userRegistered.getUsername()) || userTaken.getEmail().equals(userRegistered.getEmail()))
@@ -126,28 +140,19 @@ public class Register implements Serializable
 				/* Similar user already exists then reload the form */
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Username and/or Email already taken",
 						"Please enter a different Username and/or Email"));
-				return "failure";
+				userDao.remove(userRegistered);
+				HttpSession session = SessionUtils.getSession();
+				session.invalidate();
+				return "login";
 			}
 			else
-			{
-				HttpSession session = SessionUtils.getSession();
-				userDao.insert(userRegistered);
-				userRegistered = userDao.findByUsernamePwd(username, pwd);
-				session.setAttribute("user", userRegistered);
-
-				setId(userRegistered.getId());
-				setUsername(userRegistered.getUsername());
-				setFirstname(userRegistered.getFirstname());
-				setLastname(userRegistered.getLastname());
-				setEmail(userRegistered.getEmail());
-				setPwd(userRegistered.getPwd());
-				
-				System.out.println(userRegistered.getUsername() + userRegistered.getFirstname());
+			{				
 				return "success";
 
 			}
 		}
-		return "failure";
+		return "login";
 	}
+	
 
 }

@@ -15,12 +15,14 @@
 		</ui:insert>
 	</div>
 	<h:form>
-		<p>Welcome #{login.username}</p>
-		<p>ID : #{login.id}</p>
-		<p>First name : #{login.firstname}</p>
-		<p>Last name : #{login.lastname}</p>
-		<p>Email name : #{login.email}</p>
-		<h:commandLink action="#{login.logout}" value="Logout"></h:commandLink>
+		<p>Welcome #{userDetails.username}</p>
+		<p>ID : #{userDetails.id}</p>
+		<p>First name : #{userDetails.firstname}</p>
+		<p>Last name : #{userDetails.lastname}</p>
+		<p>Email name : #{userDetails.email}</p>
+		<h:commandLink action="#{login.logout}" value="Logout">
+			<f:actionListener binding="#{userDetails.clearUserDetails()}"/>
+		</h:commandLink>
 	</h:form>
 </h:body>
 </html>

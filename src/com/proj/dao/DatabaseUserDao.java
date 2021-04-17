@@ -24,7 +24,7 @@ public class DatabaseUserDao implements UserDao
 	/**
 	 * SQL query used to insert user
 	 */
-	private static String INSERT_USER_SQL = "INSERT INTO users (username, firstname, lastname, email, password) VALUES ?, ?, ?, ?, ?";
+	private static String INSERT_USER_SQL = "INSERT INTO users (username, firstname, lastname, email, password) VALUES (?, ?, ?, ?, ?)";
 
 	/**
 	 * SQL query used to remove user
@@ -47,16 +47,15 @@ public class DatabaseUserDao implements UserDao
 		try
 		{
 			Connection conn = DbConnection.getInstance();
+			
 			PreparedStatement ps = conn.prepareStatement(INSERT_USER_SQL);
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getFirstname());
 			ps.setString(3, user.getLastname());
 			ps.setString(4, user.getEmail());
 			ps.setString(5, user.getPwd());
-
-			//TODO: use rs et rs.next
 			
-			ps.executeQuery();
+			ps.executeUpdate();
 			ps.close();
 			
 			try
@@ -86,7 +85,7 @@ public class DatabaseUserDao implements UserDao
 			PreparedStatement ps = conn.prepareStatement(REMOVE_USER_SQL);
 			ps.setInt(1, user.getId());
 
-			ps.executeQuery();
+			ps.executeUpdate();
 			ps.close();
 			
 			try

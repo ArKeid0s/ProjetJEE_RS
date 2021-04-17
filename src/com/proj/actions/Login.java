@@ -26,6 +26,8 @@ public class Login implements Serializable
 	private String lastname;
 	private String email;
 	private String pwd;
+	
+	private boolean loggedIn = false;
 
 	private UserDao userDao;
 	private User userConnected = null;
@@ -108,17 +110,34 @@ public class Login implements Serializable
 	{
 		this.msg = msg;
 	}
-
 	
-	// Validate login
-	public String validateLoginRequest()
+	public String validateLoginRequest() {
+		userDao = new DatabaseUserDao();
+		userConnected = userDao.findByUsernamePwd(username, pwd);
+		
+		if(userConnected != null && loggedIn == false) {
+			loggedIn = true;
+			return "success";
+		}
+		else if(loggedIn) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"You are already logged in", "You can see your user details in the home page"));
+			return "login";
+		}
+		else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Incorrect Username and Password", "Please enter a correct Username and Password"));
+			return "login";
+		}
+	}
+	
+	public void proceedLoginRequest()
 	{
 		userDao = new DatabaseUserDao();
 		userConnected = userDao.findByUsernamePwd(username, pwd);
-		if (userConnected != null)
+		HttpSession session = SessionUtils.getSession();
+		if (userConnected != null && loggedIn == false)
 		{
-			HttpSession session = SessionUtils.getSession();
-			
 			//Set login variables to access them
 			setId(userConnected.getId());
 			setUsername(userConnected.getUsername());
@@ -128,15 +147,9 @@ public class Login implements Serializable
 			setPwd(userConnected.getPwd());
 			
 			session.setAttribute("user", userConnected);
-			return "success";
-		}
-		else
-		{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Incorrect Username and Password", "Please enter a correct Username and Password"));
-			return "login";
 		}
 	}
+	
 
 	public String logout()
 	{

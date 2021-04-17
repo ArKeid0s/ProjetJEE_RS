@@ -11,6 +11,11 @@
 			<to-view-id>/webapp/homePage.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>alreadyLogged</from-outcome>
+			<to-view-id>/webapp/homePage.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
 	</navigation-rule>
 
 	<navigation-rule>
