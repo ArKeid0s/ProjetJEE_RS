@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>My relations</title>
+</h:head>
+<h:body>
+	<div style="border-width: 1px; border-style: solid; height: 25%">
+		<ui:insert name="header">
+			<ui:include src="templates/header.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+	<fieldset>
+		<legend>My relations</legend>
+		<h:form>
+			<h:commandButton value="Back to start"
+				action="#{myRelations.backToStartRelations}" />
+			<h:commandButton value="Next page"
+				action="#{myRelations.nextPageRelations}" rendered="#{myRelations.hasNextPage}" />
+			<br />
+			<br />
+			<ui:repeat value="#{myRelations.currentDisplay}" var="user">
+				<fieldset>
+					<legend>#{user.username}</legend>
+					<p>#{user.firstname} #{user.lastname}</p>
+					<br />
+					<p>relationship in common: #{userDetails.user.commonRelations(user.id).size()}</p>
+					<br/>
+					<ui:repeat value="#{userDetails.user.commonRelations(user.id)}" var="userRelation">
+						(#{userRelation.username})
+					</ui:repeat>
+					<br />
+					<h:commandButton value="Delete" action="#{myRelations.removeRelation(user.id)}"/>
+				</fieldset>
+			</ui:repeat>
+		</h:form>
+	</fieldset>
+</h:body>
+</html>

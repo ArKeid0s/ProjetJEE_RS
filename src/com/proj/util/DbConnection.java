@@ -1,4 +1,4 @@
-package com.proj.dao;
+package com.proj.util;
 
 import java.sql.*;
 
@@ -11,17 +11,17 @@ public class DbConnection {
 	/**
 	 * DSN to connect to the database
 	 */
-	static final String DB_URL = "jdbc:mysql://localhost/coursl3";
+	static final String DB_URL = "jdbc:mysql://localhost/projetjee";
 
 	/**
 	 * Username to connect to the database
 	 */
-	static final String USER = "yourUsername";
+	static final String USER = "root";
 
 	/**
 	 * Password to connect to the database
 	 */
-	static final String PASS = "yourPassword";
+	static final String PASS = "";
 
 	/**
 	 * The connection to the database
@@ -37,17 +37,22 @@ public class DbConnection {
 	 */
 	public static Connection getInstance()
 	{
-		if (null == connection) {
-			try {
-				Class.forName(JDBC_DRIVER);
-				connection = DriverManager.getConnection(DB_URL,USER,PASS);
-			} catch (ClassNotFoundException e) {
-				//Class.forName failed
-				e.printStackTrace();
-			} catch (SQLException e) {
-				//DriverManager.getConnection failed
-				e.printStackTrace();
+		try {
+			if (null == connection || connection.isClosed()) {
+				try {
+					Class.forName(JDBC_DRIVER);
+					connection = DriverManager.getConnection(DB_URL,USER,PASS);
+				} catch (ClassNotFoundException e) {
+					//Class.forName failed
+					e.printStackTrace();
+				} catch (SQLException e) {
+					//DriverManager.getConnection failed
+					e.printStackTrace();
+				}
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return connection;
 	}

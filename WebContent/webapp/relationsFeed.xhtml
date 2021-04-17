@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Relation feed</title>
+</h:head>
+<h:body>
+	<div style="border-width: 1px; border-style: solid; height: 25%">
+		<ui:insert name="header">
+			<ui:include src="templates/header.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+	<fieldset>
+		<legend>Relation feed</legend>
+		<h:form>
+			<h:commandButton value="Actualiser"
+				action="#{relationsFeed.refreshPosts}" />
+			<br />
+			<br />
+			<ui:repeat value="#{relationsFeed.allPosts}" var="post">
+				<fieldset>
+					<legend>#{post.title}</legend>
+					<p>#{post.content}</p>
+					<br />
+					<p>#{post.date} by #{post.author.username}</p>
+				</fieldset>
+			</ui:repeat>
+		</h:form>
+	</fieldset>
+</h:body>
+</html>

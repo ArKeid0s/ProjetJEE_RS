@@ -1,7 +1,14 @@
 package com.proj.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.proj.dao.DatabaseUserDao;
+import com.proj.dao.RelationDAO;
+import com.proj.dao.UserDao;
+
 public class User {
-	/* test */
+	
 	/* Primary key represent the user */
 	private int id;
 	
@@ -10,6 +17,10 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String email;
+	
+	public User() {
+		
+	}
 	
 	/* ID Getter Setter */
 	public int getId() {
@@ -58,4 +69,30 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public List<User> commonRelations(int user2ID) {
+		UserDao uDao = new DatabaseUserDao();
+		User user2 = uDao.findById(user2ID);
+		
+		List<User> user1Connections = RelationDAO.getRelationsOf(this); 
+		//System.out.println("size1: "+user1Connections.size());
+		List<User> user2Connections =RelationDAO.getRelationsOf(user2); 
+		//System.out.println("size2: "+user2Connections.size());
+		
+		List<User> result = new ArrayList<>();
+		
+		for(User u : user1Connections) {
+			for(User u2 : user2Connections) {
+				if(u.getId()==u2.getId()) {
+					result.add(u);
+					break;
+				}
+				
+			}
+		}
+		
+		//System.out.println("common: "+user2ID+" size:"+result.size());
+		return result;
+	}
+	
 }
